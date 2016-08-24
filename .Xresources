@@ -1,0 +1,91 @@
+xterm*background: #0f0f0f
+xterm*foreground: #c8c8c8
+URxvt*background: #0f0f0f
+URxvt*foreground: #c8c8c8
+
+
+! black
+*color0:  #2E3436
+*color8:  #555753
+! red
+*color1:  #a40000
+*color9:  #EF2929
+! green
+*color2:  #4E9A06
+*color10: #8AE234
+! yellow
+*color3:  #C4A000
+*color11: #FCE94F
+! blue
+*color4:  #3465A4
+*color12: #729FCF
+! purple
+*color5:  #75507B
+*color13: #AD7FA8
+! orange (replaces cyan)
+*color6:  #ce5c00
+*color14: #fcaf3e
+! white
+*color7:  #babdb9
+*color15: #EEEEEC
+
+
+!disable that stupid yellow box
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+
+!http://wiki.archlinux.fr/Urxvt
+
+! not fancy, no powerline, but ok
+!URxvt.font: xft:Monospace-10
+
+Xft*antialias : true
+Xft*hinting   : 1
+Xft*dpi       : 86
+
+! this one also quiet nice 
+URxvt.font: \
+            xft:Source Code Pro for Powerline,hinting=True;antialias:True,Source Code Pro Light:style=Light,Regular,\
+            xft:Source Han Sans TW,思源黑體 TW,思源黑體 TW ExtraLight,Source Han Sans TW ExtraLight:style=ExtraLight,Regular
+
+
+URxvt*font: \
+            xft:Source Code Pro for Powerline,hinting=true;antialias:True,Source Code Pro Light:style=Light,Regular,\
+            xft:Source Han Sans TW,思源黑體 TW,思源黑體 TW ExtraLight,Source Han Sans TW ExtraLight:style=ExtraLight,Regular
+
+URxvt.letterSpace:  0
+
+! no tabbed
+! URxvt.perl-ext-common: default,clipboard
+! URxvt.perl-ext: default
+! URxvt.perl-ext: default,clipboard,url-select,keyboard-select
+URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select
+URxvt.keysym.M-u:           perl:url-select:select_next
+URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+URxvt.keysym.M-s:           perl:keyboard-select:search
+
+
+!URxvt.keysim.M-c: perl:clipboard:copy
+!URxvt.keysim.M-v: perl:clipboard:paste
+
+URxvt.keysym.C-Delete: perl:matcher:last
+URxvt.keysym.M-Delete: perl:matcher:list
+URxvt*termName: rxvt-256color
+
+
+URxvt.urlLauncher: /usr/bin/chromium
+URxvt.underlineURLS: true
+URxvt.matcher.button: 1
+
+URxvt.url-select.launcher: /usr/bin/chromium
+URxvt.url-select.underline: true
+
+!URxvt.saveLines: 262144
+URxvt.saveLines: 10000
+URxvt.scrollBar: false
+
+!URxvt.depth: 32
+!URxvt.background: rgba:1111/1111/1111/dddd
+URxvt*.transparent:   true
+URxvt*.shading:       30
