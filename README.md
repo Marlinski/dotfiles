@@ -20,7 +20,7 @@ Most of them have been scavenged in various forums, blog post or github dotfiles
 * Status Bar: [**i3blocks**](https://aur.archlinux.org/packages/i3blocks)
 * Lock Screen: [**i3lock-fancy-git**](https://aur.archlinux.org/packages/i3lock-fancy-git/)
 * Quick launcher: [**dmenu2**](https://aur.archlinux.org/packages/dmenu2/) 
-* Zsh Improvement: [**zim**](https://aur.archlinux.org/packages/zsh-zim-git/)
+* Zsh Improvement: [**zsh-zim-git**](https://aur.archlinux.org/packages/zsh-zim-git/)
 * Fonts: [**powerline-fonts-git**](https://aur.archlinux.org/packages/powerline-fonts-git/)
 
 # Screenshots
