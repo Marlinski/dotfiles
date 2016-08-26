@@ -16,7 +16,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # The font above is very space-efficient, that is, it looks good, sharp and
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
@@ -27,13 +27,15 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec lilyterm
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec dmenu_run -fn "Source Sans Pro-10 10" -p "launch " -nb '#002b36' -h 21
+    
 
 # change focus
 bindsym $mod+h focus left
@@ -147,7 +149,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 #lock the screen
-bindsym $mod+Shift+Escape exec "i3lock -d"
+bindsym $mod+Shift+Escape exec "i3lock-fancy"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -198,13 +200,6 @@ bar {
         urgent_workspace #d33682 #d33682 #fdf6e3
     }
 }
-client.focused #002b36 #002b36 #fdf6e3 #6c71c4
-#client.focused #6c71c4 #6c71c4 #fdf6e3 #6c71c4
-#client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
-client.unfocused #373642 #373642 #93a1a1 #586e75
-#client.urgent #d33682 #d33682 #fdf6e3 #dc322f
-
-
 
 
 #######################################################################
@@ -229,6 +224,9 @@ client.unfocused #373642 #373642 #93a1a1 #586e75
 # bb: no border or window title bar
 # new_window bp
 
+# to disable window title
+#font pango:DejaVu Sans Mono 8
+font pango:Source Sans Pro-8 8
 
 #
 ## Colours
@@ -238,6 +236,14 @@ client.unfocused #373642 #373642 #93a1a1 #586e75
 # client.focused          #859900 #859900 #fdf6e3 #2e9ef4
 # client.focused_inactive #268bd2 #268bd2 #fdf6e3 #484e50
 # client.unfocused        #333333 #93a1a1 #fdf6e3 #292d2e
+
+client.focused #002b36 #002b36 #fdf6e3 #6c71c4
+#client.focused #6c71c4 #6c71c4 #fdf6e3 #6c71c4
+#client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
+client.unfocused #373642 #373642 #93a1a1 #586e75
+#client.urgent #d33682 #d33682 #fdf6e3 #dc322f
+
+
 
 # for_window[instance="^inkscape$" class="^Inkscape$"] floating disable
 
@@ -261,12 +267,8 @@ bindsym XF86AudioPrev exec mpc prev
 # printscreen
 bindsym Print exec --no-startup-id "scrot ~/Images/$(date +%Y-%m-%d-%H-%M-%S).png"
 
-# i3-gaps border
-# new_window pixel 3
-# smart_gaps on
-# gaps inner 5
-# gaps outer 5
-
 # launch fcitx daemon
 exec --no-startup-id "fcitx -d"
 exec --no-startup-id nitrogen --restore
+#export PATH="/opt/android-sdk/platform-tools:/opt/android-sdk/tools:/opt/android-sdk/studio/bin:/home/lucien/.bin:$PATH"
+
