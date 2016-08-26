@@ -15,6 +15,7 @@ Most of them have been scavenged in various forums, blog post or github dotfiles
 * Music: [**mpd**](https://wiki.archlinux.org/index.php/Music_Player_Daemon) + [**ncmpcpp**](https://wiki.archlinux.org/index.php/Ncmpcpp)
 * File Manager: [**pcmanfm**](https://wiki.archlinux.org/index.php/PCManFM)
 * Background: [**nitrogen**](https://wiki.archlinux.org/index.php/nitrogen)
+* Misc: [**lm_sensors**](https://wiki.archlinux.org/index.php/lm_sensors) [**acpi**](https://wiki.archlinux.org/index.php?title=ACPI_modules&redirect=no)
 
 ## AUR
 * Status Bar: [**i3blocks**](https://aur.archlinux.org/packages/i3blocks)
