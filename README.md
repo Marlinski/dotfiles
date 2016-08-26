@@ -1,7 +1,7 @@
 # Dotfiles
 
-this repository contains some of the dotfiles I use
-most of them has been originally picked up somewhere else.
+This repository contains some of the dotfiles I use.
+Most of them have been scavenged in various forums, blog post or github dotfiles repository like this one.
 
 # Software Installed
 
