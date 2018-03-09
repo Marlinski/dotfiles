@@ -1,0 +1,355 @@
+; vim:filetype=dosini
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                               GLOBAL VARIABLES
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[dracula-colors]
+; Dracula theme palette
+background = #af0b0e13
+;background = #2F343F
+;background = #282a36
+current-line = #44475a
+selection = #44475a
+foreground = #6ff8f8f2
+cyan = #8be9fd
+green = #50fa7b
+orange = #ffb86c
+pink = #ff79c6
+purple = #bd93f9
+red = #ff5555
+yellow = #f1fa8c
+white = #f3f3f3
+
+; Arc theme palette
+[arc-colors]
+background = #383C4A
+borders = #252a33
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                                     BARS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[bar/primary]
+; Monitors
+monitor = DP-1-1
+monitor-fallback = eDP-1
+
+; Bar dimensions
+width = 100%
+height = 36
+
+; Position
+bottom = false
+
+; Colors
+background = ${dracula-colors.background}
+foreground = ${dracula-colors.foreground}
+
+; Fixed center position for modules-center
+fixed-center = true
+
+; Underline
+;underline-size = 2
+;underline-color = ${dracula-colors.foreground}
+
+overline-size = 1
+overline-color = ${dracula-colors.foreground}
+
+border-top-size = 0
+border-bottom-size = 0
+;border-bottom-color = #14151a
+
+; Fonts
+font-0 = "Ubuntu Mono:size=10;3"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;4"
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=10;4"
+font-3 = "Font Awesome 5 Brands:pixelsize=10;4"
+font-4 = "Wuncon Siji:pixelsize=10;1"
+
+modules-left = i3
+modules-center = datesf datefr datesg 
+modules-right = filesystem cpu openvpn wifi ip volume keyboard battery powermenu
+
+;tray-position = right
+;tray-padding = 2
+;tray-background = #66333333
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                                   MODULES
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[module/cpu]
+type = custom/script
+interval = 1
+format-padding = 2
+format = <label>
+label = " %output%"
+exec = echo $(cut -d ' ' -f1 /proc/loadavg)
+
+[module/keyboard]
+type = internal/xkeyboard
+format = <label-layout>
+format-spacing = 0
+label-layout = %layout%
+label-layout-padding = 2
+label-indicator = %name%
+label-indicator-padding = 0
+
+[module/i3]
+type = internal/i3
+
+index-sort = true
+strip-wsnumbers = false
+ws-icon-0 = 1: web;
+ws-icon-1 = 2: term;
+ws-icon-2 = 3: mail;
+ws-icon-3 = 5: code;
+ws-icon-4 = 8: slack;
+ws-icon-5 = 9: music;
+ws-icon-default = 
+
+padding = 2
+
+format = <label-state> <label-mode>
+;
+;focused|unfocused|visible|urgent
+label-focused = %icon% %index%
+;label-focused-foreground = ${dracula-colors.green}
+label-focused-foreground = ${dracula-colors.cyan}
+;label-focused-background = #44475A
+label-focused-overline = ${dracula-colors.cyan}
+;label-focused-underline = ${dracula-colors.cyan}
+label-focused-padding = ${self.padding}
+
+label-unfocused = %icon% %index%
+label-unfocused-padding = ${self.padding}
+
+label-visible = %icon% %index%
+label-visible-padding = ${self.padding}
+
+label-occupied = %icon% %index%
+label-occupied-padding = ${self.padding}
+
+label-urgent = %icon% %index%
+label-urgent-padding = ${self.padding}
+
+label-empty = %icon% %index%
+label-empty-foreground = #44ffffff
+label-empty-padding = ${self.padding}
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+mount-0 = /
+label-mounted =   %free%
+format-mounted-padding = 1
+
+[module/padding]
+type = custom/text
+content =
+content-foreground = #00000000
+content-background = #55000000
+
+[module/wifi]
+type = custom/script
+interval = 1
+format = <label>
+label =   %output% 
+exec = echo $(iwgetid -r || echo ...)
+format-padding = 1
+click-left = termite -e nmtui
+
+[module/ip]
+type = custom/script
+interval = 1
+format = <label>
+label =   %output% 
+exec = dev=$(ip ro s default | grep dev | awk '{print $5;}') && echo $(ifconfig $dev | awk '/inet /{print substr($2,1)}')
+format-padding = 1
+
+[module/wireless-network]
+type = internal/network
+interface=wlp2s0
+
+format-connected = <label-connected>
+format-connected-padding = 0
+
+format-disconnected = <label-disconnected>
+format-disconnected-padding = 0
+
+label-connected =   %essid%  %local_ip% 
+label-disconnected =   None
+click-left = termite -e nmtui
+
+[module/openvpn]
+type = custom/script
+
+interval = 1
+format = <label>
+label = " %output% "
+;label = " %output% "
+exec-if = pgrep openvpn
+exec = "echo ''  $(ps aux | grep openvpn | head -n1 | awk '{print $NF;}' | cut -d'.' -f1)"
+
+[module/eth]
+type = internal/network
+interface = enp0s31f6
+interval = 3.0
+
+format-connected-padding = 1
+format-disconnected-padding = 1
+
+format-connected-underline = ${dracula-colors.cyan}
+;format-disconnected-underline = ${dracula-colors.gray}
+
+label-connected = 
+label-disconnected = 
+label-disconnected-foreground = ${dracula-colors.foreground}
+
+[module/battery]
+type = internal/battery
+
+full-at = 100
+
+battery = BAT0
+adapter = AC
+
+poll-interval = 5
+
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
+
+label-charging = %percentage%%
+label-discharging = %percentage%%
+label-full = %percentage%%
+
+format-charging-padding = 0
+format-discharging-padding = 0
+format-full-padding = 0
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+
+ramp-capacity-0-foreground = ${dracula-colors.red}
+
+[module/datesf]
+type = custom/script
+format = <label>
+format-padding = 2
+label = "%output%"
+exec = echo $(TZ='America/Los_Angeles' date '+%a %H:%M:%S (%d-%m)')
+#label-overline = ${dracula-colors.cyan}
+
+[module/datefr]
+type = custom/script
+format =  <label>
+format-padding = 2
+label = "%output%"
+exec = echo $(TZ='Europe/Paris' date '+%a %H:%M:%S (%d-%m)')
+#label-overline = ${dracula-colors.white}
+
+[module/datesg]
+type = custom/script
+format = <label>
+format-padding = 2
+label = "%output%"
+exec = echo $(TZ='Asia/Singapore' date '+%a %H:%M:%S (%d-%m)')
+label-overline = ${dracula-colors.cyan}
+
+#[module/date]
+#type = internal/date
+#interval = 1.0
+#date = %a %d %b
+#time = %H:%M
+#date-alt = %A, %d %B %Y
+#time-alt = %H:%M:%S
+#label = %date%  %time%
+#format =  <label>
+#format-padding = 2
+
+[module/volume]
+type = internal/volume
+
+master-soundcard = default
+speaker-soundcard = default
+headphone-soundcard = default
+
+master-mixer = Master
+;speaker-mixer = Speaker
+;headphone-mixer = Headphone
+;headphone-id = 16
+
+mapping = true
+
+format-volume = <ramp-volume> <label-volume>%
+format-muted = <label-muted>
+label-volume = %percentage%
+label-muted =  muted
+label-muted-foreground = #aaa
+format-volume-padding = 2
+format-muted-padding = 2
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-headphones-0 = 
+
+[module/weather]
+type = custom/script
+interval = 10
+format = <label>
+format-prefix = " "
+format-prefix-foreground = ${dracula-colors.foreground}
+exec = ~/.i3/polybar/weather
+
+[module/powermenu]
+type = custom/menu
+padding = 1
+expand-right = false
+label-open = 
+label-close = cancel
+label-close-foreground = #fff
+label-open-padding = 2
+label-close-padding = 2
+
+label-separator = |
+
+menu-0-1 = reboot
+menu-0-1-exec = menu-open-1
+menu-0-2 = power off
+menu-0-2-exec = menu-open-2
+menu-0-0 = logout
+menu-0-0-exec = menu-open-3
+menu-0-0-padding = ${self.padding}
+menu-0-1-padding = ${self.padding}
+menu-0-2-padding = ${self.padding}
+
+menu-1-0 = reboot ?
+menu-1-0-exec = reboot
+menu-1-0-padding = ${self.padding}
+menu-1-0-foreground = ${dracula-colors.cyan}
+
+menu-2-0 = power off ?
+menu-2-0-exec = poweroff
+menu-2-0-padding = ${self.padding}
+menu-2-0-foreground = ${dracula-colors.cyan}
+
+menu-3-0 = logout ?
+menu-3-0-exec = i3-msg exit
+menu-3-0-padding = ${self.padding}
+menu-3-0-foreground = ${dracula-colors.cyan}
